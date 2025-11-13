@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment #1 – Conversion Tool</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+        }
+
+        a {
+            color: #d1a3ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #b266ff;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(90deg, #4b0082, #000000);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        nav {
+            background: linear-gradient(90deg, #2e0055, #000000);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 12px 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #4b0082;
+            border-radius: 5px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #f0e0ff;
+        }
+
+        label, select, input, button {
+            display: block;
+            margin: 10px auto;
+            font-size: 16px;
+        }
+
+        select, input {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4b0082;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6e00c2;
+        }
+
+        /* Result */
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #d1a3ff;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #2e0055, #000000);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Assignment #1 – Conversion Tool</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="conversion.html">Assignment #1</a></li>
+            <li><a href="assignment2.html">Assignment #2</a></li>
+            <li><a href="assignment3.html">Assignment #3</a></li>
+            <li><a href="assignment4.html">Assignment #4</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Conversion Tool</h2>
+
+        <label for="operation">Select an operation:</label>
+        <select id="operation">
+            <option value="c2f">Celsius to Fahrenheit</option>
+            <option value="f2c">Fahrenheit to Celsius</option>
+            <option value="m2f">Meters to Feet</option>
+            <option value="f2m">Feet to Meters</option>
+        </select>
+
+        <label for="value">Enter value:</label>
+        <input type="number" id="value" placeholder="Enter number">
+
+        <button onclick="convert()">Convert</button>
+
+        <div class="result" id="result"></div>
+    </main>
+
+    <footer>
+        &copy; 2025 SimplyGab. All rights reserved.
+    </footer>
+
+    <script>
+        function convert() {
+            const operation = document.getElementById('operation').value;
+            const value = parseFloat(document.getElementById('value').value);
+            let result;
+
+            if (isNaN(value)) {
+                result = "Please enter a valid number.";
+            } else {
+                switch(operation) {
+                    case 'c2f':
+                        result = (value * 9/5 + 32).toFixed(2) + " °F";
+                        break;
+                    case 'f2c':
+                        result = ((value - 32) * 5/9).toFixed(2) + " °C";
+                        break;
+                    case 'm2f':
+                        result = (value * 3.28084).toFixed(2) + " ft";
+                        break;
+                    case 'f2m':
+                        result = (value / 3.28084).toFixed(2) + " m";
+                        break;
+                }
+            }
+
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>
