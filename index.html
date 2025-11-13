@@ -12,11 +12,13 @@
             padding: 0;
             background-color: #0d0d0d; /* Deep black background */
             color: #e0e0e0;
+            scroll-behavior: smooth; /* Smooth scrolling */
         }
 
         a {
             color: #d1a3ff;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         a:hover {
@@ -25,7 +27,7 @@
 
         /* Header with gradient */
         header {
-            background: linear-gradient(90deg, #4b0082, #000000); /* Purple to black */
+            background: linear-gradient(90deg, #4b0082, #000000);
             padding: 20px 0;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
@@ -38,7 +40,10 @@
 
         /* Navigation with gradient */
         nav {
-            background: linear-gradient(90deg, #2e0055, #000000); /* Dark purple to black */
+            background: linear-gradient(90deg, #2e0055, #000000);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         nav ul {
@@ -57,7 +62,7 @@
             display: block;
             padding: 15px 20px;
             font-weight: bold;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
         nav ul li a:hover {
@@ -65,9 +70,9 @@
             border-radius: 5px;
         }
 
-        /* Hero Section with gradient */
+        /* Hero Section */
         .hero {
-            background: linear-gradient(180deg, #4b0082, #000000); /* Purple top, black bottom */
+            background: linear-gradient(180deg, #4b0082, #000000);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -88,7 +93,7 @@
             color: #f0e0ff;
         }
 
-        /* Main Content */
+        /* Sections */
         main {
             padding: 60px 20px;
             max-width: 900px;
@@ -152,11 +157,11 @@
 
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Assignment #1</a></li>
-            <li><a href="#">Assignment #2</a></li>
-            <li><a href="#">Assignment #3</a></li>
-            <li><a href="#">Assignment #4</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="ITC/conversion.html">Assignment #1</a></li>
+            <li><a href="ITC/assignment2.html">Assignment #2</a></li>
+            <li><a href="ITC/assignment3.html">Assignment #3</a></li>
+            <li><a href="ITC/assignment4.html">Assignment #4</a></li>
         </ul>
     </nav>
 
@@ -170,19 +175,19 @@
         <div class="assignments">
             <div class="assignment-card">
                 <h3>Assignment #1</h3>
-                <a href="#">View Assignment</a>
+                <a href="ITC/conversion.html">View Assignment</a>
             </div>
             <div class="assignment-card">
                 <h3>Assignment #2</h3>
-                <a href="#">View Assignment</a>
+                <a href="ITC/assignment2.html">View Assignment</a>
             </div>
             <div class="assignment-card">
                 <h3>Assignment #3</h3>
-                <a href="#">View Assignment</a>
+                <a href="ITC/assignment3.html">View Assignment</a>
             </div>
             <div class="assignment-card">
                 <h3>Assignment #4</h3>
-                <a href="#">View Assignment</a>
+                <a href="ITC/assignment4.html">View Assignment</a>
             </div>
         </div>
     </main>
