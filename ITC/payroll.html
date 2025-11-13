@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment #4 – Payroll System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+        }
+
+        a {
+            color: #d1a3ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #b266ff;
+        }
+
+        header {
+            background: linear-gradient(90deg, #4b0082, #000000);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        nav {
+            background: linear-gradient(90deg, #2e0055, #000000);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 12px 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #4b0082;
+            border-radius: 5px;
+        }
+
+        main {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: #1a001a;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            max-width: 700px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #f0e0ff;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: none;
+            background-color: #2e0055;
+            color: #fff;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #4b0082, #6e00c2);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(107,0,194,0.5);
+        }
+
+        table {
+            margin-top: 30px;
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #2b0040;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #4b0082;
+        }
+
+        th {
+            background-color: #4b0082;
+            color: #fff;
+        }
+
+        footer {
+            background: linear-gradient(90deg, #2e0055, #000000);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Assignment #4 – Payroll System</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="conversion.html">Assignment #1</a></li>
+            <li><a href="incometax.html">Assignment #2</a></li>
+            <li><a href="fsac.html">Assignment #3</a></li>
+            <li><a href="payroll.html">Assignment #4</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="card">
+            <h2>Payroll List</h2>
+
+            <label>Employee Name:</label>
+            <input type="text" id="empName">
+
+            <label>Days Worked:</label>
+            <input type="number" id="daysWorked">
+
+            <label>Daily Rate:</label>
+            <input type="number" id="dailyRate">
+
+            <label>Deduction Amount:</label>
+            <input type="number" id="deduction">
+
+            <button onclick="addEmployee()">Add Employee</button>
+            <button onclick="deleteEmployee()">Delete Employee</button>
+
+            <table id="payrollTable">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Employee Name</th>
+                        <th>Days Worked</th>
+                        <th>Daily Rate</th>
+                        <th>Gross Pay</th>
+                        <th>Deduction</th>
+                        <th>Net Pay</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 SimplyGab. All rights reserved.
+    </footer>
+
+    <script>
+        let employees = [];
+
+        function addEmployee() {
+            const name = document.getElementById('empName').value.trim();
+            const days = parseFloat(document.getElementById('daysWorked').value);
+            const rate = parseFloat(document.getElementById('dailyRate').value);
+            const deduction = parseFloat(document.getElementById('deduction').value);
+
+            if (!name || isNaN(days) || isNaN(rate) || isNaN(deduction)) {
+                alert("Please fill in all fields correctly.");
+                return;
+            }
+
+            const gross = days * rate;
+            const net = gross - deduction;
+
+            employees.push({
+                name,
+                days,
+                rate,
+                deduction,
+                gross,
+                net
+            });
+
+            displayTable();
+            clearFields();
+        }
+
+        function deleteEmployee() {
+            const line = parseInt(prompt("Enter the line number to delete:"));
+            if (isNaN(line) || line < 1 || line > employees.length) {
+                alert("Invalid line number!");
+                return;
+            }
+
+            employees.splice(line - 1, 1);
+            displayTable();
+        }
+
+        function displayTable() {
+            const tbody = document.querySelector("#payrollTable tbody");
+            tbody.innerHTML = "";
+
+            employees.forEach((emp, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${emp.name}</td>
+                        <td>${emp.days}</td>
+                        <td>₱${emp.rate.toFixed(2)}</td>
+                        <td>₱${emp.gross.toFixed(2)}</td>
+                        <td>₱${emp.deduction.toFixed(2)}</td>
+                        <td>₱${emp.net.toFixed(2)}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function clearFields() {
+            document.getElementById('empName').value = "";
+            document.getElementById('daysWorked').value = "";
+            document.getElementById('dailyRate').value = "";
+            document.getElementById('deduction').value = "";
+        }
+    </script>
+</body>
+</html>
