@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment #1 – Conversion Tool</title>
+    <title>Assignment #2 – Income Tax Calculator</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -88,19 +88,23 @@
             font-size: 28px;
         }
 
-        label, select, input, button {
+        label, input, button {
             display: block;
             margin: 12px auto;
             font-size: 16px;
         }
 
-        select, input {
+        input {
             padding: 10px;
             border-radius: 8px;
             border: none;
             width: 100%;
             background-color: #2e0055;
             color: #fff;
+        }
+
+        input::placeholder {
+            color: #ccc;
         }
 
         button {
@@ -138,7 +142,7 @@
 </head>
 <body>
     <header>
-        <h1>Assignment #1 – Conversion Tool</h1>
+        <h1>Assignment #2 – Income Tax Calculator</h1>
     </header>
 
     <nav>
@@ -153,20 +157,12 @@
 
     <main>
         <div class="card">
-            <h2>Conversion Tool</h2>
+            <h2>Income Tax Calculator</h2>
 
-            <label for="operation">Select an operation:</label>
-            <select id="operation">
-                <option value="c2f">Celsius to Fahrenheit</option>
-                <option value="f2c">Fahrenheit to Celsius</option>
-                <option value="m2f">Meters to Feet</option>
-                <option value="f2m">Feet to Meters</option>
-            </select>
+            <label for="income">Enter your annual income (₱):</label>
+            <input type="number" id="income" placeholder="Enter amount">
 
-            <label for="value">Enter value:</label>
-            <input type="number" id="value" placeholder="Enter number">
-
-            <button onclick="convert()">Convert</button>
+            <button onclick="calculateTax()">Calculate Tax</button>
 
             <div class="result" id="result"></div>
         </div>
@@ -177,31 +173,31 @@
     </footer>
 
     <script>
-        function convert() {
-            const operation = document.getElementById('operation').value;
-            const value = parseFloat(document.getElementById('value').value);
-            let result;
+        function calculateTax() {
+            const income = parseFloat(document.getElementById('income').value);
+            let tax;
 
-            if (isNaN(value)) {
-                result = "Please enter a valid number.";
+            if (isNaN(income) || income < 0) {
+                tax = "Please enter a valid income.";
             } else {
-                switch(operation) {
-                    case 'c2f':
-                        result = (value * 9/5 + 32).toFixed(2) + " °F";
-                        break;
-                    case 'f2c':
-                        result = ((value - 32) * 5/9).toFixed(2) + " °C";
-                        break;
-                    case 'm2f':
-                        result = (value * 3.28084).toFixed(2) + " ft";
-                        break;
-                    case 'f2m':
-                        result = (value / 3.28084).toFixed(2) + " m";
-                        break;
+                // Philippine 2023 progressive tax example
+                if (income <= 250000) {
+                    tax = 0;
+                } else if (income <= 400000) {
+                    tax = (income - 250000) * 0.20;
+                } else if (income <= 800000) {
+                    tax = 30000 + (income - 400000) * 0.25;
+                } else if (income <= 2000000) {
+                    tax = 130000 + (income - 800000) * 0.30;
+                } else if (income <= 8000000) {
+                    tax = 490000 + (income - 2000000) * 0.32;
+                } else {
+                    tax = 2410000 + (income - 8000000) * 0.35;
                 }
+                tax = "₱ " + tax.toFixed(2);
             }
 
-            document.getElementById('result').innerText = result;
+            document.getElementById('result').innerText = tax;
         }
     </script>
 </body>
